@@ -146,6 +146,21 @@ html,body { height:100%; width:100%; overflow:hidden; font-family:'Georgia',seri
 .cp { position:absolute; border-radius:2px; animation:fall linear forwards; }
 @keyframes fall { 0% { transform:translateY(-20px) rotate(0deg); opacity:1; } 100% { transform:translateY(110vh) rotate(540deg); opacity:0; } }
 
+
+/* CONFIRMATION CHAIN */
+#confirm { display:none; position:fixed; inset:0; background:var(--midnight); z-index:480; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:36px 28px; gap:0; }
+#confirm.show { display:flex; }
+.confirm-cat { width:clamp(80px,24vw,110px); height:clamp(80px,24vw,110px); border-radius:50%; object-fit:cover; filter:drop-shadow(0 0 16px rgba(212,112,138,0.35)); animation:floatSlow 3.5s ease-in-out infinite; margin-bottom:28px; }
+.confirm-step { display:none; flex-direction:column; align-items:center; gap:20px; width:100%; }
+.confirm-step.active { display:flex; }
+.confirm-prompt { font-size:clamp(20px,6vw,30px); font-weight:400; color:var(--text-light); line-height:1.3; letter-spacing:-0.3px; }
+.confirm-prompt em { font-style:italic; background:linear-gradient(135deg,var(--blush),var(--gold)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+.confirm-sub { font-family:'Courier New',monospace; font-size:11px; color:rgba(253,246,238,0.55); line-height:1.6; }
+.confirm-btns { display:flex; flex-direction:column; align-items:center; gap:12px; margin-top:8px; width:100%; }
+.btn-confirm-yes { background:linear-gradient(135deg,var(--rose),#8b4a9e); color:white; border:none; padding:16px 44px; border-radius:50px; font-size:17px; font-family:'Georgia',serif; cursor:pointer; box-shadow:0 6px 24px rgba(212,112,138,0.3); -webkit-tap-highlight-color:transparent; transition:transform 0.15s; letter-spacing:0.3px; }
+.btn-confirm-yes:active { transform:scale(0.95); }
+.btn-confirm-no { background:transparent; color:rgba(253,246,238,0.5); border:1px solid rgba(253,246,238,0.2); padding:12px 32px; border-radius:50px; font-size:13px; font-family:'Courier New',monospace; cursor:pointer; -webkit-tap-highlight-color:transparent; }
+
 /* SHARED */
 @keyframes fadeUp { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
 @keyframes dropIn { from { opacity:0; transform:translateY(-30px) scale(0.8); } to { opacity:1; transform:translateY(0) scale(1); } }
@@ -157,6 +172,48 @@ html,body { height:100%; width:100%; overflow:hidden; font-family:'Georgia',seri
 <div id="confetti"></div>
 
 <button class="btn-no" id="btnNo">nein</button>
+
+
+<!-- CONFIRMATION CHAIN -->
+<div id="confirm">
+  <img class="confirm-cat" src="data:image/webp;base64,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">
+
+  <div class="confirm-step active" id="cstep-0">
+    <p class="confirm-prompt">Bist du dir<br><em>sicher?</em></p>
+    <p class="confirm-sub">Das ist eine ernste Frage.</p>
+    <div class="confirm-btns">
+      <button class="btn-confirm-yes" onclick="confirmNext(1)">Ja, sicher.</button>
+      <button class="btn-confirm-no" onclick="confirmBack()">Warte mal kurz.</button>
+    </div>
+  </div>
+
+  <div class="confirm-step" id="cstep-1">
+    <p class="confirm-prompt"><em>Wirklich</em> sicher?<br>Das hier zählt.</p>
+    <p class="confirm-sub">Kein Kleingedrucktes. Nur du und ich.</p>
+    <div class="confirm-btns">
+      <button class="btn-confirm-yes" onclick="confirmNext(2)">Ja, wirklich.</button>
+      <button class="btn-confirm-no" onclick="confirmBack()">Hmm, kurz nochmal.</button>
+    </div>
+  </div>
+
+  <div class="confirm-step" id="cstep-2">
+    <p class="confirm-prompt">Hiernach gibt's<br>kein <em>Zurück.</em></p>
+    <p class="confirm-sub">Wassermann + Zwilling. Die Sterne sind auch dabei.</p>
+    <div class="confirm-btns">
+      <button class="btn-confirm-yes" onclick="confirmNext(3)">Ich weiß.</button>
+      <button class="btn-confirm-no" onclick="confirmBack()">Warte, warte.</button>
+    </div>
+  </div>
+
+  <div class="confirm-step" id="cstep-3">
+    <p class="confirm-prompt">Er hat eine<br><em>Präsentation</em> gemacht.</p>
+    <p class="confirm-sub">Fünf Slides. Echte Sticker. Viel Aufwand.</p>
+    <div class="confirm-btns">
+      <button class="btn-confirm-yes" onclick="confirmFinish()">Ich weiß auch das.</button>
+      <button class="btn-confirm-no" onclick="confirmBack()">Respekt. Aber nein.</button>
+    </div>
+  </div>
+</div>
 
 <!-- NO REACTION OVERLAY -->
 <div id="noReaction">
@@ -404,8 +461,13 @@ document.getElementById('btnYes').addEventListener('click',function(e){
   const size=Math.max(rect.width,rect.height);
   r.style.cssText=`width:${size}px;height:${size}px;left:${e.clientX-rect.left-size/2}px;top:${e.clientY-rect.top-size/2}px`;
   this.appendChild(r); setTimeout(()=>r.remove(),600);
-  launchConfetti();
-  setTimeout(()=>document.getElementById('success').classList.add('show'),400);
+  // show confirmation chain instead of success directly
+  setTimeout(()=>{
+    document.getElementById('confirm').classList.add('show');
+    // reset steps
+    document.querySelectorAll('.confirm-step').forEach(s=>s.classList.remove('active'));
+    document.getElementById('cstep-0').classList.add('active');
+  }, 300);
 });
 
 // ── CONFETTI ──
@@ -421,6 +483,24 @@ function launchConfetti(){
   setTimeout(()=>{c.style.display='none';c.innerHTML='';},4000);
 }
 document.getElementById('success').addEventListener('click',launchConfetti);
+
+// ── CONFIRMATION CHAIN ──
+function confirmNext(step) {
+  document.querySelectorAll('.confirm-step').forEach(s=>s.classList.remove('active'));
+  const next = document.getElementById('cstep-'+step);
+  if (next) next.classList.add('active');
+}
+function confirmBack() {
+  document.getElementById('confirm').classList.remove('show');
+  // scroll back to question slide
+  document.getElementById('s4').scrollIntoView({behavior:'smooth'});
+}
+function confirmFinish() {
+  document.getElementById('confirm').classList.remove('show');
+  launchConfetti();
+  setTimeout(()=>document.getElementById('success').classList.add('show'), 400);
+}
+
 </script>
 </body>
 </html>
